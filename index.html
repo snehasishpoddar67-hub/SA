@@ -94,8 +94,8 @@
     user-select:none;
     pointer-events:none;
   }
-  .mark-nav img{ width:118px; height:auto; }
-  .mark-foot img{ width:104px; height:auto; }
+  .mark-nav img{ height:46px; width:auto; display:block; }
+  .mark-foot img{ height:40px; width:auto; display:block; }
   .mark-hero img{ width:100%; height:auto; max-width:320px; }
   .mark-sheen{
     animation: sheen 2.4s ease-in-out 0.3s 1;
@@ -117,15 +117,20 @@
     font-size:12px;
   }
   .topbar .wrap{
-    height:38px;
+    min-height:38px;
+    padding-top:6px;
+    padding-bottom:6px;
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:16px;
+    flex-wrap:wrap;
   }
   .topbar-contact{
     display:flex;
     gap:20px;
+    flex-wrap:wrap;
+    row-gap:4px;
   }
   .topbar-contact a{
     color:var(--chrome-2);
@@ -141,6 +146,9 @@
   }
   @media (max-width:700px){
     .topbar-offer{ display:none; }
+  }
+  @media (max-width:520px){
+    .topbar-email{ display:none; }
   }
   @media (max-width:460px){
     .topbar .wrap{ justify-content:center; }
@@ -652,6 +660,13 @@
     gap:14px;
   }
   .custom-cta .btn{ width:fit-content; }
+  .custom-cta-email{
+    font-family:var(--f-mono);
+    font-size:13px;
+    color:var(--chrome-2);
+    transition:color .18s ease;
+  }
+  .custom-cta-email:hover{ color:var(--gold-hi); }
   .custom-cta small{
     font-family:var(--f-mono);
     font-size:11px;
@@ -736,6 +751,7 @@
     <div class="topbar-contact">
       <a href="tel:+917426096344">📞 +91 74260 96344</a>
       <a href="https://wa.me/917426096344" target="_blank" rel="noopener">💬 WhatsApp us</a>
+      <a href="mailto:aurter.106.2@gmail.com" class="topbar-email">✉ aurter.106.2@gmail.com</a>
     </div>
     <span class="topbar-offer">🇮🇳 Independence Day Offer — 50% off every plan</span>
   </div>
@@ -946,6 +962,7 @@
         <div class="custom-cta" id="contact">
           <a href="https://wa.me/917426096344?text=Hi%2C%20I%27d%20like%20a%20custom%20quote%20for%20my%20website." target="_blank" rel="noopener" class="btn btn-gold">Chat on WhatsApp</a>
           <a href="tel:+917426096344" class="btn btn-ghost">Call +91 74260 96344</a>
+          <a href="mailto:aurter.106.2@gmail.com" class="custom-cta-email">✉ aurter.106.2@gmail.com</a>
           <small>No call centres, no chatbots — a real person on our team replies.</small>
         </div>
       </div>
@@ -966,6 +983,7 @@
       <div class="footer-contact">
         <a href="tel:+917426096344">📞 +91 74260 96344</a>
         <a href="https://wa.me/917426096344" target="_blank" rel="noopener">💬 WhatsApp</a>
+        <a href="mailto:aurter.106.2@gmail.com">✉ Email</a>
       </div>
     </div>
     <div class="footer-bottom">
