@@ -28,6 +28,8 @@
     --t-dynamic:  #E8964A;
     --t-pro:      #E0666A;
 
+    --ease: cubic-bezier(.16,1,.3,1);
+
     --f-display: 'Barlow Condensed', sans-serif;
     --f-body:    'Inter', sans-serif;
     --f-mono:    'JetBrains Mono', monospace;
@@ -143,6 +145,82 @@
   @media (max-width:460px){
     .topbar .wrap{ justify-content:center; }
     .topbar-contact{ gap:14px; }
+  }
+
+  /* ---------- MOTION SYSTEM ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .8s var(--ease), transform .8s var(--ease);
+    will-change:opacity, transform;
+  }
+  .reveal.is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+
+  .nav{
+    transition:background .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .nav.is-scrolled{
+    background:rgba(8,8,10,0.92);
+    box-shadow:0 12px 30px -18px rgba(0,0,0,0.6);
+  }
+
+  .nav-links a{
+    position:relative;
+    padding-bottom:3px;
+  }
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:0;
+    width:100%;
+    height:1px;
+    background:var(--gold);
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform .35s var(--ease);
+  }
+  .nav-links a:hover::after,
+  .nav-links a.active::after{
+    transform:scaleX(1);
+  }
+  .nav-links a.active{ color:var(--gold-hi); }
+
+  @keyframes floatY{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-10px); }
+  }
+  .mark-float{
+    animation:floatY 5.5s ease-in-out infinite;
+    animation-delay:2.6s;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .mark-float{ animation:none; }
+  }
+  .hero-visual{
+    perspective:900px;
+  }
+  .hero-visual .mark{
+    transition:transform .25s var(--ease);
+    transform-style:preserve-3d;
+  }
+
+  @keyframes heroIn{
+    from{ opacity:0; transform:translateY(20px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .hero-anim{
+    opacity:0;
+    animation:heroIn .8s var(--ease) forwards;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-anim{ opacity:1; animation:none; }
+    .hero-visual .mark{ transition:none; }
   }
 
   /* ---------- NAV ---------- */
@@ -663,7 +741,7 @@
   </div>
 </div>
 
-<nav class="nav">
+<nav class="nav" id="mainNav">
   <div class="wrap">
     <a href="#top" class="brand">
       <span class="mark mark-nav" aria-hidden="true">
@@ -684,21 +762,21 @@
   <section class="hero">
     <div class="wrap">
       <div>
-        <span class="eyebrow">BUILD · LAUNCH · MANAGE</span>
-        <h1>A website your business needs — <em>not the internet's over‑engineered version of one.</em></h1>
-        <p class="lead">We're a small independent team — no call centre, no chatbot. Tell us about your business on WhatsApp and we'll tell you straight what it'll cost and how long it'll take.</p>
-        <div class="offer-badge">
+        <span class="eyebrow hero-anim" style="animation-delay:.05s">BUILD · LAUNCH · MANAGE</span>
+        <h1 class="hero-anim" style="animation-delay:.15s">A website your business needs — <em>not the internet's over‑engineered version of one.</em></h1>
+        <p class="lead hero-anim" style="animation-delay:.28s">We're a small independent team — no call centre, no chatbot. Tell us about your business on WhatsApp and we'll tell you straight what it'll cost and how long it'll take.</p>
+        <div class="offer-badge hero-anim" style="animation-delay:.4s">
           <span class="offer-badge-dot"></span>
           Independence Day Offer — every plan below is 50% off, this week only
         </div>
-        <div class="hero-ctas">
+        <div class="hero-ctas hero-anim" style="animation-delay:.5s">
           <a href="https://wa.me/917426096344?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20your%20website%20plans." target="_blank" rel="noopener" class="btn btn-gold">Chat on WhatsApp</a>
           <a href="#pricing" class="btn btn-ghost">See the five plans</a>
         </div>
-        <p class="hero-trust">Built for shop owners, coaches, freelancers and small teams who need to be findable online — not a marketing department to run it.</p>
+        <p class="hero-trust hero-anim" style="animation-delay:.6s">Built for shop owners, coaches, freelancers and small teams who need to be findable online — not a marketing department to run it.</p>
       </div>
-      <div class="hero-visual">
-        <span class="mark mark-hero mark-sheen" aria-hidden="true">
+      <div class="hero-visual hero-anim" style="animation-delay:.3s" id="heroVisual">
+        <span class="mark mark-hero mark-sheen mark-float" aria-hidden="true">
           <img src="sa-logo.png" alt="">
         </span>
       </div>
@@ -710,15 +788,15 @@
   <section class="why">
     <div class="wrap">
       <div class="why-grid">
-        <div class="why-item">
+        <div class="why-item reveal">
           <span class="why-tag">SEARCH</span>
           <p>Most customers look on Google or Maps before they ever walk in. No website means they find someone else instead.</p>
         </div>
-        <div class="why-item">
+        <div class="why-item reveal" style="transition-delay:.1s">
           <span class="why-tag">TRUST</span>
           <p>A clean, modern site tells a stranger you're a real, established business in the first few seconds.</p>
         </div>
-        <div class="why-item">
+        <div class="why-item reveal" style="transition-delay:.2s">
           <span class="why-tag">BUDGET</span>
           <p>Priced so a small shop or solo creator can afford it — not just businesses with a marketing budget.</p>
         </div>
@@ -728,7 +806,7 @@
 
   <section class="pricing" id="pricing">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
         <span class="eyebrow">PRICING · 50% OFF THIS WEEK</span>
         <h2>Five tiers. Everything's listed, nothing's hidden.</h2>
         <p>Every plan includes custom design and a mobile-friendly layout. Prices below already include the Independence Day discount — tap a plan to confirm on WhatsApp.</p>
@@ -736,13 +814,13 @@
 
       <div class="plans">
 
-        <article class="plan" style="--tier-color:var(--t-starter)">
+        <article class="plan reveal" style="--tier-color:var(--t-starter); transition-delay:.02s">
           <div class="plan-badge">Starter</div>
           <div class="plan-name">Starter</div>
           <div class="plan-sub">Get found online, fast.</div>
           <div class="plan-off">50% OFF</div>
           <div class="plan-price-row">
-            <span class="plan-price">₹1,999</span>
+            <span class="plan-price" data-value="1999">₹1,999</span>
             <span class="plan-strike">₹3,998</span>
           </div>
           <div class="plan-type">One-Page Static Website</div>
@@ -759,13 +837,13 @@
           <a href="https://wa.me/917426096344?text=Hi%21%20I%27m%20interested%20in%20the%20STARTER%20plan%20%28%E2%82%B91%2C999%20-%20Independence%20Day%20Offer%29.%20Can%20you%20share%20more%20details%3F" target="_blank" rel="noopener" class="plan-cta">Start with Starter</a>
         </article>
 
-        <article class="plan" style="--tier-color:var(--t-business)">
+        <article class="plan reveal" style="--tier-color:var(--t-business); transition-delay:.08s">
           <div class="plan-badge">Business</div>
           <div class="plan-name">Business</div>
           <div class="plan-sub">Your own domain, live and hosted.</div>
           <div class="plan-off">50% OFF</div>
           <div class="plan-price-row">
-            <span class="plan-price">₹3,999</span>
+            <span class="plan-price" data-value="3999">₹3,999</span>
             <span class="plan-strike">₹8,998</span>
           </div>
           <div class="plan-type">One-Page Static Website</div>
@@ -781,13 +859,13 @@
           <a href="https://wa.me/917426096344?text=Hi%21%20I%27m%20interested%20in%20the%20BUSINESS%20plan%20%28%E2%82%B93%2C999%20-%20Independence%20Day%20Offer%29.%20Can%20you%20share%20more%20details%3F" target="_blank" rel="noopener" class="plan-cta">Start with Business</a>
         </article>
 
-        <article class="plan featured" style="--tier-color:var(--t-plus)">
+        <article class="plan featured reveal" style="--tier-color:var(--t-plus); transition-delay:.14s">
           <div class="plan-badge">Business Plus</div>
           <div class="plan-name">Business Plus</div>
           <div class="plan-sub">Customers can reach you in one tap.</div>
           <div class="plan-off">50% OFF</div>
           <div class="plan-price-row">
-            <span class="plan-price">₹5,999</span>
+            <span class="plan-price" data-value="5999">₹5,999</span>
             <span class="plan-strike">₹11,998</span>
           </div>
           <div class="plan-type">One-Page Static Website</div>
@@ -802,13 +880,13 @@
           <a href="https://wa.me/917426096344?text=Hi%21%20I%27m%20interested%20in%20the%20BUSINESS%20PLUS%20plan%20%28%E2%82%B95%2C999%20-%20Independence%20Day%20Offer%29.%20Can%20you%20share%20more%20details%3F" target="_blank" rel="noopener" class="plan-cta">Start with Business Plus</a>
         </article>
 
-        <article class="plan" style="--tier-color:var(--t-dynamic)">
+        <article class="plan reveal" style="--tier-color:var(--t-dynamic); transition-delay:.2s">
           <div class="plan-badge">Dynamic</div>
           <div class="plan-name">Dynamic</div>
           <div class="plan-sub">A site that updates itself.</div>
           <div class="plan-off">50% OFF</div>
           <div class="plan-price-row">
-            <span class="plan-price">₹7,499</span>
+            <span class="plan-price" data-value="7499">₹7,499</span>
             <span class="plan-strike">₹14,998</span>
           </div>
           <div class="plan-type">One-Page Dynamic Website</div>
@@ -824,13 +902,13 @@
           <a href="https://wa.me/917426096344?text=Hi%21%20I%27m%20interested%20in%20the%20DYNAMIC%20plan%20%28%E2%82%B97%2C499%20-%20Independence%20Day%20Offer%29.%20Can%20you%20share%20more%20details%3F" target="_blank" rel="noopener" class="plan-cta">Start with Dynamic</a>
         </article>
 
-        <article class="plan" style="--tier-color:var(--t-pro)">
+        <article class="plan reveal" style="--tier-color:var(--t-pro); transition-delay:.26s">
           <div class="plan-badge">Professional</div>
           <div class="plan-name">Professional</div>
           <div class="plan-sub">The full multi-page presence.</div>
           <div class="plan-off">50% OFF</div>
           <div class="plan-price-row">
-            <span class="plan-price">₹9,999</span>
+            <span class="plan-price" data-value="9999">₹9,999</span>
             <span class="plan-strike">₹19,998</span>
           </div>
           <div class="plan-type">Multi-Page Dynamic Website</div>
@@ -853,7 +931,7 @@
 
   <section class="custom" id="custom">
     <div class="wrap">
-      <div class="custom-panel">
+      <div class="custom-panel reveal">
         <div>
           <span class="eyebrow">GOT SOMETHING SPECIFIC IN MIND?</span>
           <h2>We'll build to your requirements.</h2>
@@ -901,5 +979,101 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Scroll reveal ---- */
+  var revealEls = document.querySelectorAll('.reveal');
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+  } else {
+    var revealObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.15, rootMargin:'0px 0px -40px 0px' });
+    revealEls.forEach(function(el){ revealObserver.observe(el); });
+  }
+
+  /* ---- Price count-up on reveal ---- */
+  var priceEls = document.querySelectorAll('.plan-price[data-value]');
+  function animatePrice(el){
+    var target = parseInt(el.getAttribute('data-value'), 10);
+    if(reduceMotion){
+      el.textContent = '₹' + target.toLocaleString('en-IN');
+      return;
+    }
+    var start = null;
+    var duration = 900;
+    function step(ts){
+      if(!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.round(target * eased);
+      el.textContent = '₹' + current.toLocaleString('en-IN');
+      if(progress < 1){ requestAnimationFrame(step); }
+      else{ el.textContent = '₹' + target.toLocaleString('en-IN'); }
+    }
+    requestAnimationFrame(step);
+  }
+  if('IntersectionObserver' in window && !reduceMotion){
+    var priceObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          animatePrice(entry.target);
+          priceObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.4 });
+    priceEls.forEach(function(el){ priceObserver.observe(el); });
+  }
+
+  /* ---- Nav scrolled state ---- */
+  var nav = document.getElementById('mainNav');
+  function onScroll(){
+    if(window.scrollY > 12){ nav.classList.add('is-scrolled'); }
+    else{ nav.classList.remove('is-scrolled'); }
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive:true });
+
+  /* ---- Scrollspy ---- */
+  var spySections = document.querySelectorAll('#pricing, #custom');
+  var navLinks = document.querySelectorAll('.nav-links a');
+  if('IntersectionObserver' in window && spySections.length){
+    var spyObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var id = entry.target.getAttribute('id');
+          navLinks.forEach(function(link){
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { threshold:0.35 });
+    spySections.forEach(function(section){ spyObserver.observe(section); });
+  }
+
+  /* ---- Hero mark subtle parallax tilt (desktop, pointer-fine only) ---- */
+  var heroVisual = document.getElementById('heroVisual');
+  var heroMark = heroVisual ? heroVisual.querySelector('.mark') : null;
+  var canTilt = heroMark && !reduceMotion && window.matchMedia('(pointer: fine)').matches;
+  if(canTilt){
+    heroVisual.addEventListener('mousemove', function(e){
+      var rect = heroVisual.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      heroMark.style.transform = 'rotateY(' + (x * 10) + 'deg) rotateX(' + (y * -10) + 'deg)';
+    });
+    heroVisual.addEventListener('mouseleave', function(){
+      heroMark.style.transform = 'rotateY(0deg) rotateX(0deg)';
+    });
+  }
+})();
+</script>
 </body>
 </html>
