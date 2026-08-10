@@ -713,6 +713,26 @@
   @media (max-width:640px){
     .footer-contact{ margin-left:0; }
   }
+  .footer-social{
+    display:flex;
+    gap:10px;
+  }
+  .social-btn{
+    width:34px;
+    height:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--chrome-2);
+    border:1px solid var(--line);
+    transition:color .2s ease, border-color .2s ease, transform .2s var(--ease);
+  }
+  .social-btn:hover{
+    color:var(--gold-hi);
+    border-color:var(--gold);
+    transform:translateY(-3px);
+  }
+  .social-btn svg{ width:16px; height:16px; }
   .footer-tagline{
     font-family:var(--f-mono);
     font-size:12px;
@@ -988,6 +1008,17 @@
         <a href="tel:+917426096344">📞 +91 74260 96344</a>
         <a href="https://wa.me/917426096344" target="_blank" rel="noopener">💬 WhatsApp</a>
         <a href="mailto:Arther.106.2@gmail.com">✉ Email</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/share/1CpdYMqAuV/" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5H16l.5-3H13.5V8.5c0-.87.24-1.46 1.5-1.46H16.5V4.35C16.24 4.32 15.36 4.25 14.33 4.25c-2.15 0-3.63 1.31-3.63 3.72V10.5H8v3h2.7V21h2.8z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/sa.website.design?igsh=MWhsbXhyY2NhbHhrdw==" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/snehasish-poddar-06b6b1276/" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 8.5H4V20h2.94V8.5zM5.47 4a1.7 1.7 0 100 3.4 1.7 1.7 0 000-3.4zM20 20h-2.94v-6.02c0-1.44-.03-3.29-2-3.29-2 0-2.31 1.56-2.31 3.18V20H9.8V8.5h2.83v1.57h.04c.4-.75 1.35-1.54 2.78-1.54 2.98 0 3.55 1.96 3.55 4.5V20z"/></svg>
+        </a>
       </div>
     </div>
     <div class="footer-bottom">
